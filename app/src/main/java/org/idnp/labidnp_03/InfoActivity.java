@@ -41,20 +41,20 @@ public class InfoActivity extends AppCompatActivity {
         editBuscarDni.setFilters(FilterArray);
 
         btnBuscar.setOnClickListener(view -> {
-
-            int valueToFind = Integer.parseInt(editBuscarDni.getText().toString());
-
-            Usuario user_match=null;
-            for (Usuario user: list) {
-                Log.d("Dni",user.getDni()+"");
-                if (valueToFind==user.getDni()){
-                    editDni.setText(user_match.getDni());
-                    editNombres.setText(user_match.getNames());
-                    editApellidos.setText(user_match.getLastnames());
-                    editBirthDate.setText(user_match.getBirthday());
-                    editColegio.setText(user_match.getCollege());
-                    editCarrera.setText(user_match.getCarreer());
-                    break;
+            if (!editBuscarDni.getText().toString().equals("")) {
+                int valueToFind = Integer.parseInt(editBuscarDni.getText().toString());
+                for (Usuario user : list) {
+                    Log.d("Dni", user.getDni() + "");
+                    if (valueToFind == user.getDni()) {
+                        Log.i("User:", user + "");
+                        editDni.setText(String.valueOf(user.getDni()));
+                        editNombres.setText(user.getNames());
+                        editApellidos.setText(user.getLastnames());
+                        editBirthDate.setText(user.getBirthday());
+                        editColegio.setText(user.getCollege());
+                        editCarrera.setText(user.getCarreer());
+                        return;
+                    }
                 }
             }
         });

@@ -85,4 +85,15 @@ public class Usuario implements Parcelable, Comparable<Usuario>{
     public int compareTo(Usuario o) {
         return this.getDni() - o.getDni();
     }
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "dni=" + dni +
+                ", names='" + names + '\'' +
+                ", lastnames='" + lastnames + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", college='" + college + '\'' +
+                ", carreer='" + carreer + '\'' +
+                '}';
+    }
 }

@@ -2,6 +2,7 @@ package org.idnp.labidnp_03;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.Log;
@@ -32,28 +33,34 @@ public class RegisterActivity extends AppCompatActivity {
         FilterArray[0] = new InputFilter.LengthFilter(8);
         editDni.setFilters(FilterArray);
 
-
         btnRegistro.setOnClickListener(view -> {
-            int dni             = Integer.parseInt(editDni.getText().toString()) ;
-            String names        = editNombres.getText().toString();
-            String lastnames    = editApellidos.getText().toString();
-            String birthday     = editBirthDate.getText().toString();
-            String college      = spinnerColegio.getSelectedItem().toString();
-            String carreer      = spinnerCarrera.getSelectedItem().toString();
-            boolean tempRegister=true;
-            Log.i("Definition","dni"+dni);
-            Log.i("Definition 2","names"+names);
-            Log.i("Definition 3","lastnames"+lastnames);
-            Log.i("Definition 4","birthday"+birthday);
-            for (Usuario user: list) {
-                if (dni==user.getDni()){
-                    tempRegister=false;
-                    break;
+            if (!editDni.getText().toString().equals("")) {
+                int dni = Integer.parseInt(editDni.getText().toString());
+                String names = editNombres.getText().toString();
+                String lastnames = editApellidos.getText().toString();
+                String birthday = editBirthDate.getText().toString();
+                String college = spinnerColegio.getSelectedItem().toString();
+                String carreer = spinnerCarrera.getSelectedItem().toString();
+                boolean tempRegister = true;
+                Log.i("Dni:", "" + dni);
+                Log.i("Names :", "" + names);
+                Log.i("Lastnames :", "" + lastnames);
+                Log.i("Birthday :", "" + birthday);
+                for (Usuario user : list) {
+                    if (dni == user.getDni()) {
+                        tempRegister = false;
+                        break;
+                    }
                 }
-            }
-            if (tempRegister){
-                Log.i("Errors","User Add");
-                list.add(new Usuario(dni,names,lastnames,birthday,college,carreer));
+                if (tempRegister) {
+                    Log.i("Errors", "User Add");
+                    list.add(new Usuario(dni, names, lastnames, birthday, college, carreer));
+                }
+                Log.i("Arraylist", list + "");
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putParcelableArrayListExtra("lista",list);
+                startActivity(intent);
+                finish();
             }
         });
     }
